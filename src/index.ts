@@ -1,9 +1,10 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
-import * as express from "express";
+import express from "express";
 import { createConnection } from "typeorm";
 import { buildSchema } from "type-graphql";
 import { RegisterResolvers } from "./modules/users/Register";
+import { formatError } from "apollo-errors";
 
 const main = async () => {
   await createConnection();
@@ -12,7 +13,10 @@ const main = async () => {
     resolvers: [RegisterResolvers],
   });
 
-  const apolloServer = new ApolloServer({ schema });
+  const apolloServer = new ApolloServer({
+    schema,
+    formatError: formatError as any,
+  });
 
   const app = express();
 
