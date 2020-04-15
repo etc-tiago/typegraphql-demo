@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  mysql:
+    container_name: MySQL_Local
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "etc"
+      MYSQL_DATABASE: "doutoretcbr"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/var/lib/mysql
